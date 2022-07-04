@@ -62,7 +62,6 @@
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
       thisProduct.processOrder();
-      thisProduct.init();
 
       console.log('new Product:', thisProduct);
     }
@@ -73,7 +72,7 @@
       const generatedHTML = templates.menuProduct(thisProduct.data);
 
       /* create element using utils.createElementFromHYML */
-      thisProduct.element = untils.createDOMFromHTML(generatedHTML);
+      thisProduct.element = utils.createDOMFromHTML(generatedHTML);
 
       /* find menu container */
       const menuContainer = document.querySelector(select.containerOf.menu);
@@ -102,7 +101,7 @@
       const thisProduct = this;
 
       /* find the clickable trigger (the element that should react to clicking) */
-      const clickableTrigger = article.querySelector(select.menuProduct.clickable);
+      const clickableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
 
       /* START: add event listener to clickable trigger on event click */
       clickableTrigger.addEventListener('click', function (event) {
@@ -111,15 +110,15 @@
         event.preventDefault();
 
         /* find active product (product that has active class) */
-        const activeProduct = article.querySelectorAll('.product-list .active');
+        const activeProduct = document.querySelector('.product-list .active');
 
         /* if there is active product and it's not thisProduct.element, 
         remove class active from it */
         if (activeProduct != thisProduct.element) {
-          thisProduct.element.remove('active');
+          activeProduct.classList.remove('active');
         }
         /* toggle active class on thisProduct.element */
-        thisProduct.element.add('active');
+        thisProduct.element.classList.toggle('active');
 
       });
 
@@ -148,7 +147,7 @@
       const thisProduct = this;
 
       /* convert form to object structure e.g. { sauce: ['tomato'], toppings: ['olives', 'resPeppers']} */
-      const formData = untils.serializeFormToObject(thisProduct.form);
+      const formData = utils.serializeFormToObject(thisProduct.form);
       console.log('formData', formData);
 
       /* set price to default price */
@@ -168,19 +167,19 @@
           const option = param.options[optionId];
           console.log(optionId, option);
 
-          /* check if there is param with a name of paramId in formData and if it includes optionId */
-          if (formData[paramId] && formData[paramId].includes(optionId)) {
-            /* check if the options is not default */
-            if (){
-              /*add option proce to price variable */
-            }
-          } else () {
-            /*check if the option is default */
-            if () {
-              /* reduce price variable */
+          // /* check if there is param with a name of paramId in formData and if it includes optionId */
+          //if (formData[paramId] && formData[paramId].includes(optionId)) {
+          /* check if the options is not default */
+          // if (){
+          /*add option proce to price variable */
+          //}
+          //} // else () {
+          /*check if the option is default */
+          // if () {
+          /* reduce price variable */
 
-            }
-          }
+          //}
+          //}
         }
       }
 
@@ -188,39 +187,38 @@
       thisProduct.priceElem.innerHTML = price;
     }
   }
-}
 
 
 
-const app = {
+  const app = {
 
-  initData: function () {
-    const thisApp = this;
+    initData: function () {
+      const thisApp = this;
 
-    thisApp.data = dataSource;
-  },
-
-  initMenu: function () {
-    const thisApp = this;
-    console.log('thisApp.data:', thisApp.data);
-    fot(let productData in thisApp.data.products) {
-      new Product(productData, thisApp.data.products[productData]);
+      thisApp.data = dataSource;
     },
-  },
 
-  init: function () {
-    const thisApp = this;
-    console.log('*** App starting ***');
-    console.log('thisApp:', thisApp);
-    console.log('classNames:', classNames);
-    console.log('settings:', settings);
-    console.log('templates:', templates);
-    thisApp.initData();
-    thisApp.initMenu();
-  },
-};
+    initMenu: function () {
+      const thisApp = this;
+      console.log('thisApp.data:', thisApp.data);
+      for (let productData in thisApp.data.products) {
+        new Product(productData, thisApp.data.products[productData]);
+      }
+    },
+
+    init: function () {
+      const thisApp = this;
+      console.log('*** App starting ***');
+      console.log('thisApp:', thisApp);
+      console.log('classNames:', classNames);
+      console.log('settings:', settings);
+      console.log('templates:', templates);
+      thisApp.initData();
+      thisApp.initMenu();
+    },
+  };
 
 
 
-app.init();
+  app.init();
 }
