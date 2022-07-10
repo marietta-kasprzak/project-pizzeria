@@ -233,6 +233,8 @@
       const thisProduct = this;
 
       app.cart.add(thisProduct.prepareCartProduct());
+      thisCart.products.push(new CartProduct(menuProduct, generatedDOM));
+      console.log('thisCart.products', thisCart.products);
     }
 
     prepareCartProduct() {
@@ -355,6 +357,25 @@
     }
   }
 
+// DO UZUPELNIENIA
+
+class CartProduct {
+  constructor (menuProduct, element){
+    const thisCartProduct = this;
+  }
+// DO UZUPEŁNIENIA
+
+
+  getElements(element) {
+    const thisCartProduct = this;
+    thisCartProduct.dom = {};
+    thisCartProduct.dom.wrapper = element;
+    thisCartProduct.dom.price = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.price);
+    thisCartProduct.dom.amountWidget = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.amountWidget);
+    thisCartProduct.dom.edit = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.edit);
+    thisCartProduct.dom.remove = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.remove);
+  }
+}
 
 
 
