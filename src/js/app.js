@@ -1,6 +1,6 @@
 import { settings, select, templates, classNames } from './settings.js';
-import Product from '../components/product.js';
-import Cart from '../components/Cart.js';
+import Product from './components/Product.js';
+import Cart from './components/Cart.js';
 import Booking from './components/Booking.js';
 
 const app = {
@@ -8,7 +8,7 @@ const app = {
     const thisApp = this;
 
     thisApp.pages = document.querySelector(select.containerOf.pages).children;
-    thisApp.navLinks = document.querySelectorAll(select.navLinks.pages);
+    thisApp.navLinks = document.querySelectorAll(select.nav.links);
 
     const idFromHash = window.location.hash.replace('#/', '');
 
@@ -21,7 +21,7 @@ const app = {
       }
     }
 
-    thisApp.activatePage(thisApp.pages[0].id);
+    thisApp.activatePage(pageMatchingHash);
 
     for (let link of thisApp.navLinks) {
       link.addEventListener('click', function (event) {

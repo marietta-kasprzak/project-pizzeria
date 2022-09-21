@@ -1,47 +1,47 @@
 class BaseWidget {
-    constructor(wrapperElement, initialValue) {
-        const thisWidget = this;
+  constructor(wrapperElement, initialValue) {
+    const thisWidget = this;
 
-        thisWidget.dom = {};
-        thisWidget.dom.wrapper = wrapperElement;
+    thisWidget.dom = {};
+    thisWidget.dom.wrapper = wrapperElement;
 
-        thisWidget.correctValue = initialValue;
-    }
-}
+    thisWidget.correctValue = initialValue;
+  }
 
-get value(){
+
+  get value(){
     const thisWidget = this;
     return  thisWidget.correctValue;
-}
+  }
 
 
-set value(value) {
+  set value(value) {
     const thisWidget = this;
     const newValue = thisWidget.parseValue(value);
 
     if (newValue != thisWidget.correctValue && thisWidget.isValid(newValue)) {
-        thisWidget.correctValue = newValue;
-        thisWidget.announce();
+      thisWidget.correctValue = newValue;
+      thisWidget.announce();
     }
     thisWidget.renderValue();
-}
+  }
 
-setValue(value){
+  setValue(value){
     const thisWidget = this;
     thisWidget.value = value;
-}
+  }
 
 
-parseValue(value){
+  parseValue(value){
     return parseInt(value);
-}
+  }
 
 
-isValid(value){
-    return !isNaN(value)
-}
+  isValid(value){
+    return !isNaN(value);
+  }
 
-renderValue(value){
+  renderValue(){
     const thisWidget = this;
     thisWidget.dom.wrapper.innerHTML = thisWidget.value;
   }
@@ -53,5 +53,6 @@ renderValue(value){
     });
     thisWidget.dom.wrapper.dispatchEvent(event);
   }
+}
 
 export default BaseWidget;
